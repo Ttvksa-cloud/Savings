@@ -19,7 +19,7 @@ main{padding:20px 15px 50px}.grid{display:grid;grid-template-columns:repeat(4,mi
 <div class="card stat"><div class="label">المتبقي بعد المصروفات</div><strong id="balance">0 ر.س</strong></div>
 </div>
 <section class="goalbox section">
- <div class="goalhead"><div><h2 style="margin:0 0 6px"> هدفي الادخاري</h2><div class="hint">حددي هدفك، وسجّلي أي مبلغ تضيفينه لمدخراتك.</div></div><span class="tag">هدفك يتحدّث تلقائيًا</span></div>
+ <div class="goalhead"><div><h2 style="margin:0 0 6px">🐷 هدفي الادخاري</h2><div class="hint">حددي هدفك، وسجّلي أي مبلغ تضيفينه لمدخراتك.</div></div><span class="tag">هدفك يتحدّث تلقائيًا</span></div>
  <div class="goalhead" style="margin-top:16px"><div><div class="hint">مدخراتك الحالية</div><div class="goalnum" id="savedNow">0 ر.س</div></div><div><div class="hint">هدفك</div><div class="goalnum" id="goalTargetText">10,000 ر.س</div></div><div><div class="hint">المتبقي</div><strong id="goalLeft">10,000 ر.س</strong></div></div>
  <div class="goaltrack"><span id="goalProgress"></span></div><div class="hint" id="goalPercent">0% من الهدف</div>
  <div class="goalinputs" style="margin-top:14px">
@@ -42,11 +42,17 @@ main{padding:20px 15px 50px}.grid{display:grid;grid-template-columns:repeat(4,mi
 <p class="hint">عند إدخال ربح جديد، يحسب الموقع نصيب كل فئة تلقائيًا ويعرضه هنا. التوزيع هنا حسابي للمتابعة، ولا ينقل المال فعليًا بين حسابات بنكية.</p>
 </section></div>
 <section class="card section"><h2>🧾 إدارة المصاريف</h2>
-<div class="row"><div class="field"><label>اسم الشيء</label><input id="expName" placeholder="مثلاً: لعبة"></div><div class="field"><label>السعر (ريال)</label><input id="expPrice" type="number" min="0" step="0.01" placeholder="مثلاً 120"></div></div>
+<div class="row"><div class="field"><label>اسم الشيء</label><input id="expName" placeholder="مثلاً: لعبة"></div><div class="field"><label>السعر الفعلي (ريال)</label><input id="expPrice" type="number" min="0" step="0.01" placeholder="مثلاً 120"></div></div>
 <div class="row"><div class="field"><label>الرسوم (ريال)</label><input id="expFee" type="number" min="0" step="0.01" placeholder="مثلاً 2"></div><div class="field"><label>الإجمالي (يُحسب تلقائيًا)</label><input id="expTotal" readonly value="0 ر.س"></div></div>
+<div class="row"><div class="field"><label>السعر المتوقع (اختياري)</label><input id="expExpected" type="number" min="0" step="0.01" placeholder="مثلاً 25"></div><div class="field"><label>التوفير (يُحسب تلقائيًا)</label><input id="expSaving" readonly value="—"></div></div>
 <button id="addExp">＋ سجّلي المصروف</button> <span class="hint">يُسجَّل التاريخ والوقت تلقائيًا، ويُحسب ضمن إجمالي المصروفات.</span>
-<h2 style="margin-top:20px">📋 سجل مصاريفك</h2>
-<div class="transactions"><table><thead><tr><th>التاريخ والوقت</th><th>الشيء</th><th>السعر</th><th>الرسوم</th><th>الإجمالي</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div><div id="expEmpty" class="empty">ما سجلتِ مصاريف بعد 💗</div></section>
+<h2 style="margin-top:20px">📋 سجل مصاريفك</h2><div class="hint" id="expSavedTotal" style="margin-bottom:8px"></div>
+<div class="transactions"><table><thead><tr><th>التاريخ والوقت</th><th>الشيء</th><th>السعر</th><th>الرسوم</th><th>الإجمالي</th><th>التوفير</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div><div id="expEmpty" class="empty">ما سجلتِ مصاريف بعد 💗</div></section>
+<section class="card section"><h2>🎀 قوائمي</h2>
+<p class="hint">قوائم منفصلة عشان ما تختلط أغراضك. اختاري قائمة أو أنشئي قائمة خاصة من اختيارك.</p>
+<div class="actions" id="listTabs" style="margin-bottom:14px"></div>
+<div class="row"><div class="field"><label>اسم قائمة جديدة</label><input id="newListName" placeholder="مثلاً: هدايا الأهل"></div><div class="field"><label>&nbsp;</label><button class="secondary" id="addList">＋ إنشاء قائمة</button></div></div>
+<div id="listBody"></div></section>
 <section class="card section"><h2>🧾 سجل العمليات <span class="tag">التاريخ والوقت تلقائيان</span></h2><div class="actions" style="margin-bottom:12px"><button class="secondary" id="export">نسخة احتياطية</button><label class="secondary" style="display:inline-block;padding:11px 14px;border-radius:10px;cursor:pointer">استعادة نسخة<input id="restore" type="file" accept="application/json" hidden></label></div><div class="transactions"><table><thead><tr><th>التاريخ والوقت</th><th>العملية</th><th>النوع</th><th>الفئة</th><th>المبلغ</th><th></th></tr></thead><tbody id="rows"></tbody></table></div><div id="empty" class="empty">لسه ما أضفتِ عمليات. ابدئي بإضافة ربح أو مصروف 💗</div></section>
 <section class="card section"><h2>📊 ملخص السنة</h2><div class="grid"><div><span class="hint">دخل السنة</span><strong id="yearIn">0 ر.س</strong></div><div><span class="hint">صرف السنة</span><strong id="yearOut">0 ر.س</strong></div><div><span class="hint">عدد العمليات</span><strong id="yearCount">0</strong></div><div><span class="hint">أكثر فئة صرفًا</span><strong id="topCat">—</strong></div></div><div class="recap" id="recap">ملخصك السنوي بيتحدّث تلقائيًا كلما أضفتِ عمليات.</div></section>
 </main>
@@ -58,9 +64,15 @@ const defaults=[
 {id:'orange',name:'الفئة البرتقالية',color:'#f6b84e',pct:5}
 ];
 const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
-let cats=load('masahati_cats',defaults), tx=load('masahati_tx',[]), goal=load('masahati_goal',{target:10000,saved:0});
+const defaultLists=[
+{id:'groc',name:'أغراض السوبرماركت',icon:'🛒',items:[]},
+{id:'care',name:'العناية الشخصية',icon:'🧴',items:[]},
+{id:'games',name:'الألعاب والمشتريات الإلكترونية',icon:'🎮',items:[]},
+{id:'later',name:'أشياء أبي أشتريها لاحقًا',icon:'🎁',items:[]}
+];
+let cats=load('masahati_cats',defaults), tx=load('masahati_tx',[]), goal=load('masahati_goal',{target:10000,saved:0}), lists=load('masahati_lists',defaultLists);
 const $=id=>document.getElementById(id), money=n=>Number(n||0).toLocaleString('ar-SA',{maximumFractionDigits:2})+' ر.س';
-function save(){localStorage.setItem('masahati_cats',JSON.stringify(cats));localStorage.setItem('masahati_tx',JSON.stringify(tx));localStorage.setItem('masahati_goal',JSON.stringify(goal))}
+function save(){localStorage.setItem('masahati_cats',JSON.stringify(cats));localStorage.setItem('masahati_tx',JSON.stringify(tx));localStorage.setItem('masahati_goal',JSON.stringify(goal));localStorage.setItem('masahati_lists',JSON.stringify(lists))}
 function dateText(d){return new Date(d).toLocaleString('ar-SA',{dateStyle:'medium',timeStyle:'short'})}
 function renderSettings(){
 $('allocations').innerHTML=cats.map((c,i)=>`<div class="allocation" style="--c:${c.color}"><div class="top"><span>${c.name}</span><span>${c.pct}%</span></div><input aria-label="اسم الفئة" data-name="${i}" value="${c.name}" placeholder="اسم الفئة"><div class="row"><div><label class="hint">النسبة %</label><input type="number" min="0" max="100" data-pct="${i}" value="${c.pct}"></div><div><label class="hint">لون الفئة</label><input type="color" data-color="${i}" value="${c.color}"></div></div></div>`).join('');
@@ -98,24 +110,98 @@ tx.push({id:Date.now(),date:new Date().toISOString(),type,amount,desc,category,s
 if(type==='income'&&cats.reduce((a,c)=>a+Number(c.pct),0)!==100){alert('تنبيه: مجموع نسب التوزيع ليس 100%. عدّلي النسب في الإعدادات.')}
 save();render();$('amount').value='';$('desc').value='';$('source').value='';alert(type==='income'?'انضاف الربح، وتوزيعه محسوب حسب نسبك 💸':'انضاف المصروف وحُفظ تاريخه ووقته 💗')};
 $('rows').onclick=e=>{let b=e.target.closest('[data-del]');if(b&&confirm('متأكدة تبين تحذفين العملية؟')){tx=tx.filter(t=>String(t.id)!==b.dataset.del);save();render()}};
-$('export').onclick=()=>{let blob=new Blob([JSON.stringify({cats,tx,goal},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='masahati-backup.json';a.click();URL.revokeObjectURL(a.href)};
+$('export').onclick=()=>{let blob=new Blob([JSON.stringify({cats,tx,goal,lists},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='masahati-backup.json';a.click();URL.revokeObjectURL(a.href)};
 $('goalTarget').onchange=()=>{goal.target=Math.max(1,Number($('goalTarget').value)||10000);save();renderGoal()};
 $('addSavings').onclick=()=>{let n=Number($('goalAddAmount').value);if(!n||n<=0){alert('اكتبي مبلغ الادخار أولًا 💗');return}goal.saved+=n;save();renderGoal();$('goalAddAmount').value='';alert('انضاف المبلغ لهدف ادخارك 💜')};
-$('restore').onchange=async e=>{try{let data=JSON.parse(await e.target.files[0].text());if(!Array.isArray(data.tx)||!Array.isArray(data.cats))throw 0;cats=data.cats;tx=data.tx;if(data.goal)goal=data.goal;save();renderSettings();render();alert('تمت استعادة النسخة 💜')}catch{alert('الملف غير صالح')}}; 
+$('restore').onchange=async e=>{try{let data=JSON.parse(await e.target.files[0].text());if(!Array.isArray(data.tx)||!Array.isArray(data.cats))throw 0;cats=data.cats;tx=data.tx;if(data.goal)goal=data.goal;if(Array.isArray(data.lists))lists=data.lists;save();renderSettings();render();renderLists();alert('تمت استعادة النسخة 💜')}catch{alert('الملف غير صالح')}}; 
 function renderExp(){
  let list=tx.filter(t=>t.type==='expense'&&t.managed).reverse();
- $('expRows').innerHTML=list.map(t=>`<tr><td>${dateText(t.date)}</td><td>${esc(t.desc)}</td><td>${money(t.price)}</td><td>${money(t.fee)}</td><td class="expense"><strong>${money(t.amount)}</strong></td><td><button class="danger smallbtn" data-delexp="${t.id}">حذف</button></td></tr>`).join('');
+ $('expRows').innerHTML=list.map(t=>`<tr><td>${dateText(t.date)}</td><td>${esc(t.desc)}</td><td>${money(t.price)}</td><td>${money(t.fee)}</td><td class="expense"><strong>${money(t.amount)}</strong></td><td class="income">${t.saving>0?'🎉 '+money(t.saving):'—'}</td><td><button class="danger smallbtn" data-delexp="${t.id}">حذف</button></td></tr>`).join('');
  $('expEmpty').style.display=list.length?'none':'block';
+ let sv=list.reduce((a,t)=>a+(t.saving||0),0);$('expSavedTotal').textContent=sv>0?`إجمالي توفيرك: ${money(sv)} 🎉`:'';
 }
-function calcExpTotal(){$('expTotal').value=money((Number($('expPrice').value)||0)+(Number($('expFee').value)||0))}
-$('expPrice').oninput=calcExpTotal;$('expFee').oninput=calcExpTotal;
+let expLock=false;
+function calcExpTotal(){
+ let p=Number($('expPrice').value)||0,f=Number($('expFee').value)||0,e=Number($('expExpected').value)||0;
+ $('expTotal').value=money(p+f);
+ $('expSaving').value=(e>0&&p>0)?(e>p?'🎉 '+money(e-p):(e<p?'زاد '+money(p-e)+' عن المتوقع':'مطابق للمتوقع')):'—';
+}
+$('expPrice').oninput=calcExpTotal;$('expFee').oninput=calcExpTotal;$('expExpected').oninput=calcExpTotal;
 $('addExp').onclick=()=>{
  let name=$('expName').value.trim(),price=Number($('expPrice').value)||0,fee=Number($('expFee').value)||0;
- if(!name||price<=0||fee<0){alert('اكتبي اسم الشيء وسعره أولًا 💗');return}
- tx.push({id:Date.now(),date:new Date().toISOString(),type:'expense',amount:Math.round((price+fee)*100)/100,price,fee,desc:name,category:'other',source:`السعر ${price} + رسوم ${fee}`,managed:true});
- save();render();$('expName').value='';$('expPrice').value='';$('expFee').value='';calcExpTotal();
- alert('انضاف المصروف وحُفظ تاريخه ووقته 💗');
+ let expected=Number($('expExpected').value)||0;
+ if(!name||price<=0||fee<0||expected<0){alert('اكتبي اسم الشيء وسعره الفعلي أولًا 💗');return}
+ if(expLock)return;
+ let now=Date.now(),dup=tx.find(t=>t.managed&&t.desc===name&&t.price===price&&t.fee===fee&&now-t.id<5*60*1000);
+ if(dup&&!confirm('نفس المصروف انسجّل قبل دقائق. تبين تسجلينه مرة ثانية؟'))return;
+ expLock=true;setTimeout(()=>{expLock=false},1500);
+ let saving=expected>price?Math.round((expected-price)*100)/100:0;
+ tx.push({id:Date.now(),date:new Date().toISOString(),type:'expense',amount:Math.round((price+fee)*100)/100,price,fee,desc:name,category:'other',source:`السعر ${price} + رسوم ${fee}`+(expected?` (المتوقع ${expected})`:''),expected,saving,managed:true});
+ save();render();$('expName').value='';$('expPrice').value='';$('expFee').value='';$('expExpected').value='';calcExpTotal();
+ alert(saving>0?`انضاف المصروف، ووفّرتي ${money(saving)}! 🎉`:'انضاف المصروف وحُفظ تاريخه ووقته 💗');
 };
 $('expRows').onclick=e=>{let b=e.target.closest('[data-delexp]');if(b&&confirm('متأكدة تبين تحذفين المصروف؟')){tx=tx.filter(t=>String(t.id)!==b.dataset.delexp);save();render()}};
+let curList=lists[0]&&lists[0].id;
+function renderLists(){
+ if(!lists.find(l=>l.id===curList))curList=lists[0]&&lists[0].id;
+ $('listTabs').innerHTML=lists.map(l=>`<button class="${l.id===curList?'':'secondary'}" data-tab="${l.id}">${l.icon} ${esc(l.name)}</button>`).join('');
+ let l=lists.find(x=>x.id===curList);
+ if(!l){$('listBody').innerHTML='<div class="empty">ما فيه قوائم، أنشئي وحدة 💗</div>';return}
+ let open=l.items.filter(i=>!i.done).reduce((a,i)=>a+(i.price||0),0);
+ $('listBody').innerHTML=`<div class="goalhead"><strong>${l.icon} ${esc(l.name)}</strong><div class="actions"><button class="secondary smallbtn" data-img="1">📷 حفظ القائمة كصورة</button>${l.custom?`<button class="danger smallbtn" data-dellist="${l.id}">حذف القائمة</button>`:''}</div></div>
+ <div class="goalinputs" style="margin:12px 0"><div class="field"><label>الغرض</label><input id="itemText" placeholder="مثلاً: حليب"></div><div class="field"><label>السعر التقريبي (اختياري)</label><input id="itemPrice" type="number" min="0" step="0.01"></div><button id="addItem">＋ إضافة</button></div>`
+ +(l.items.length?l.items.map(i=>`<div class="allocation" style="--c:${i.done?'#16a765':'#8050e8'};margin-bottom:8px"><div class="top"><label style="display:flex;gap:8px;align-items:center;${i.done?'text-decoration:line-through;opacity:.6':''}"><input type="checkbox" style="width:auto;margin:0" data-chk="${i.id}" ${i.done?'checked':''}>${esc(i.text)}</label><span>${i.price?money(i.price):''}</span></div><div class="actions" style="margin-top:8px"><button class="secondary smallbtn" data-toexp="${i.id}">سجّليه كمصروف</button><button class="danger smallbtn" data-delitem="${i.id}">حذف</button></div></div>`).join(''):'<div class="empty">القائمة فاضية 💗</div>')
+ +`<div class="hint">تقدير المتبقي في القائمة: ${money(open)}</div>`;
+}
+function saveListImage(l){
+ if(!l.items.length){alert('القائمة فاضية، أضيفي أغراض أولًا 💗');return}
+ const W=900,pad=40,rowH=68,headH=150,footH=100,sc=2,H=headH+l.items.length*rowH+footH;
+ const cv=document.createElement('canvas');cv.width=W*sc;cv.height=H*sc;
+ const c=cv.getContext('2d');c.scale(sc,sc);c.direction='rtl';c.textBaseline='middle';
+ const F='Tahoma,Arial,sans-serif';
+ const rr=(x,y,w,h,r)=>{c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()};
+ c.fillStyle='#f7f5fb';c.fillRect(0,0,W,H);
+ let g=c.createLinearGradient(0,0,W,0);g.addColorStop(0,'#a76ce9');g.addColorStop(1,'#6740d7');
+ c.fillStyle=g;c.fillRect(0,0,W,headH-30);
+ c.fillStyle='#fff';c.textAlign='right';
+ c.font='bold 36px '+F;c.fillText(l.icon+' '+l.name,W-pad,52);
+ c.font='20px '+F;c.fillText(dateText(new Date()),W-pad,92);
+ l.items.forEach((it,i)=>{
+  let y=headH+i*rowH-10;
+  c.fillStyle='#fff';rr(pad,y,W-pad*2,rowH-12,14);c.fill();
+  c.strokeStyle='#e9e5f0';c.lineWidth=1;c.stroke();
+  let cx=W-pad-32,cy=y+(rowH-12)/2;
+  c.beginPath();c.arc(cx,cy,14,0,Math.PI*2);
+  if(it.done){c.fillStyle='#16a765';c.fill();c.fillStyle='#fff';c.textAlign='center';c.font='bold 18px '+F;c.fillText('✓',cx,cy+1)}
+  else{c.strokeStyle='#8050e8';c.lineWidth=2.5;c.stroke()}
+  c.textAlign='right';c.font='24px '+F;c.fillStyle=it.done?'#9a97aa':'#25233a';
+  let t=it.text,maxW=W-pad*2-190;
+  while(c.measureText(t).width>maxW&&t.length>1)t=t.slice(0,-1);
+  if(t!==it.text)t+='…';
+  let tx0=W-pad-64;c.fillText(t,tx0,cy);
+  if(it.done){let w=c.measureText(t).width;c.strokeStyle='#9a97aa';c.lineWidth=2;c.beginPath();c.moveTo(tx0,cy);c.lineTo(tx0-w,cy);c.stroke()}
+  if(it.price){c.textAlign='left';c.fillStyle='#7544cf';c.font='bold 22px '+F;c.fillText(money(it.price),pad+24,cy)}
+ });
+ let open=l.items.filter(i=>!i.done).reduce((a,i)=>a+(i.price||0),0),left=l.items.filter(i=>!i.done).length;
+ c.textAlign='right';c.fillStyle='#77758a';c.font='20px '+F;
+ c.fillText(`المتبقي: ${left} من ${l.items.length}`+(open?` — تقدير ${money(open)}`:''),W-pad,H-footH/2+10);
+ c.textAlign='left';c.fillText('💜 مساحتي المالية',pad,H-footH/2+10);
+ cv.toBlob(b=>{if(!b){alert('تعذّر إنشاء الصورة');return}
+  let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='قائمتي-'+l.name.replace(/[\\/:*?"<>|]/g,'')+'.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});
+}
+$('listTabs').onclick=e=>{let b=e.target.closest('[data-tab]');if(b){curList=b.dataset.tab;renderLists()}};
+$('addList').onclick=()=>{let n=$('newListName').value.trim();if(!n){alert('اكتبي اسم القائمة أولًا 💗');return}
+ let id='c'+Date.now();lists.push({id,name:n,icon:'📝',custom:true,items:[]});curList=id;$('newListName').value='';save();renderLists()};
+$('listBody').onclick=e=>{
+ let l=lists.find(x=>x.id===curList);if(!l)return;
+ if(e.target.closest('[data-img]')){saveListImage(l);return}
+ if(e.target.closest('#addItem')){let t=$('itemText').value.trim(),p=Number($('itemPrice').value)||0;if(!t){alert('اكتبي اسم الغرض أولًا 💗');return}
+  l.items.push({id:Date.now(),text:t,price:p,done:false});save();renderLists();return}
+ let d=e.target.closest('[data-delitem]');if(d){l.items=l.items.filter(i=>String(i.id)!==d.dataset.delitem);save();renderLists();return}
+ let dl=e.target.closest('[data-dellist]');if(dl&&confirm('متأكدة تبين تحذفين القائمة بكل أغراضها؟')){lists=lists.filter(x=>x.id!==l.id);save();renderLists();return}
+ let x=e.target.closest('[data-toexp]');if(x){let it=l.items.find(i=>String(i.id)===x.dataset.toexp);if(it){$('expName').value=it.text;$('expExpected').value=it.price||'';calcExpTotal();$('expName').scrollIntoView({behavior:'smooth',block:'center'});$('expPrice').focus()}}
+};
+$('listBody').onchange=e=>{let c=e.target.closest('[data-chk]');if(!c)return;let l=lists.find(x=>x.id===curList),it=l&&l.items.find(i=>String(i.id)===c.dataset.chk);if(it){it.done=c.checked;save();renderLists()}};
+renderLists();
 $('today').textContent='اليوم: '+dateText(new Date());renderSettings();render();
 </script></body></html>
