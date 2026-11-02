@@ -19,7 +19,7 @@ main{padding:20px 15px 50px}.grid{display:grid;grid-template-columns:repeat(4,mi
 <div class="card stat"><div class="label">المتبقي بعد المصروفات</div><strong id="balance">0 ر.س</strong></div>
 </div>
 <section class="goalbox section">
- <div class="goalhead"><div><h2 style="margin:0 0 6px"> هدفي الادخاري</h2><div class="hint">حددي هدفك، وسجّلي أي مبلغ تضيفينه لمدخراتك.</div></div><span class="tag">هدفك يتحدّث تلقائيًا</span></div>
+ <div class="goalhead"><div><h2 style="margin:0 0 6px">🐷 هدفي الادخاري</h2><div class="hint">حددي هدفك، وسجّلي أي مبلغ تضيفينه لمدخراتك.</div></div><span class="tag">هدفك يتحدّث تلقائيًا</span></div>
  <div class="goalhead" style="margin-top:16px"><div><div class="hint">مدخراتك الحالية</div><div class="goalnum" id="savedNow">0 ر.س</div></div><div><div class="hint">هدفك</div><div class="goalnum" id="goalTargetText">10,000 ر.س</div></div><div><div class="hint">المتبقي</div><strong id="goalLeft">10,000 ر.س</strong></div></div>
  <div class="goaltrack"><span id="goalProgress"></span></div><div class="hint" id="goalPercent">0% من الهدف</div>
  <div class="goalinputs" style="margin-top:14px">
@@ -45,9 +45,10 @@ main{padding:20px 15px 50px}.grid{display:grid;grid-template-columns:repeat(4,mi
 <div class="row"><div class="field"><label>اسم الشيء</label><input id="expName" placeholder="مثلاً: لعبة"></div><div class="field"><label>السعر الفعلي (ريال)</label><input id="expPrice" type="number" min="0" step="0.01" placeholder="مثلاً 120"></div></div>
 <div class="row"><div class="field"><label>الرسوم (ريال)</label><input id="expFee" type="number" min="0" step="0.01" placeholder="مثلاً 2"></div><div class="field"><label>الإجمالي (يُحسب تلقائيًا)</label><input id="expTotal" readonly value="0 ر.س"></div></div>
 <div class="row"><div class="field"><label>السعر المتوقع (اختياري)</label><input id="expExpected" type="number" min="0" step="0.01" placeholder="مثلاً 25"></div><div class="field"><label>التوفير (يُحسب تلقائيًا)</label><input id="expSaving" readonly value="—"></div></div>
+<div class="row"><div class="field"><label>ضريبة القيمة المضافة 15%</label><select id="expVat"><option value="none">بدون ضريبة</option><option value="add">السعر بدون ضريبة (تُضاف 15%)</option><option value="incl">السعر شامل الضريبة</option></select></div><div class="field"><label>مبلغ الضريبة (يُحسب تلقائيًا)</label><input id="expVatAmt" readonly value="—"></div></div>
 <button id="addExp">＋ سجّلي المصروف</button> <span class="hint">يُسجَّل التاريخ والوقت تلقائيًا، ويُحسب ضمن إجمالي المصروفات.</span>
 <h2 style="margin-top:20px">📋 سجل مصاريفك</h2><div class="hint" id="expSavedTotal" style="margin-bottom:8px"></div>
-<div class="transactions"><table><thead><tr><th>التاريخ والوقت</th><th>الشيء</th><th>السعر</th><th>الرسوم</th><th>الإجمالي</th><th>التوفير</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div><div id="expEmpty" class="empty">ما سجلتِ مصاريف بعد 💗</div></section>
+<div class="transactions"><table><thead><tr><th>التاريخ والوقت</th><th>الشيء</th><th>السعر</th><th>الرسوم</th><th>الضريبة</th><th>الإجمالي</th><th>التوفير</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div><div id="expEmpty" class="empty">ما سجلتِ مصاريف بعد 💗</div></section>
 <section class="card section"><h2>🎀 قوائمي</h2>
 <p class="hint">قوائم منفصلة عشان ما تختلط أغراضك. اختاري قائمة أو أنشئي قائمة خاصة من اختيارك.</p>
 <div class="actions" id="listTabs" style="margin-bottom:14px"></div>
@@ -116,17 +117,21 @@ $('addSavings').onclick=()=>{let n=Number($('goalAddAmount').value);if(!n||n<=0)
 $('restore').onchange=async e=>{try{let data=JSON.parse(await e.target.files[0].text());if(!Array.isArray(data.tx)||!Array.isArray(data.cats))throw 0;cats=data.cats;tx=data.tx;if(data.goal)goal=data.goal;if(Array.isArray(data.lists))lists=data.lists;save();renderSettings();render();renderLists();alert('تمت استعادة النسخة 💜')}catch{alert('الملف غير صالح')}}; 
 function renderExp(){
  let list=tx.filter(t=>t.type==='expense'&&t.managed).reverse();
- $('expRows').innerHTML=list.map(t=>`<tr><td>${dateText(t.date)}</td><td>${esc(t.desc)}</td><td>${money(t.price)}</td><td>${money(t.fee)}</td><td class="expense"><strong>${money(t.amount)}</strong></td><td class="income">${t.saving>0?'🎉 '+money(t.saving):'—'}</td><td><button class="danger smallbtn" data-delexp="${t.id}">حذف</button></td></tr>`).join('');
+ $('expRows').innerHTML=list.map(t=>`<tr><td>${dateText(t.date)}</td><td>${esc(t.desc)}</td><td>${money(t.price)}</td><td>${money(t.fee)}</td><td>${t.vat?money(t.vat)+(t.vatMode==='incl'?'<br><small>شاملة</small>':''):'—'}</td><td class="expense"><strong>${money(t.amount)}</strong></td><td class="income">${t.saving>0?'🎉 '+money(t.saving):'—'}</td><td><button class="danger smallbtn" data-delexp="${t.id}">حذف</button></td></tr>`).join('');
  $('expEmpty').style.display=list.length?'none':'block';
  let sv=list.reduce((a,t)=>a+(t.saving||0),0);$('expSavedTotal').textContent=sv>0?`إجمالي توفيرك: ${money(sv)} 🎉`:'';
 }
 let expLock=false;
+const VAT=0.15;
+function vatOf(p,m){return m==='add'?Math.round(p*VAT*100)/100:m==='incl'?Math.round(p*VAT/(1+VAT)*100)/100:0}
 function calcExpTotal(){
  let p=Number($('expPrice').value)||0,f=Number($('expFee').value)||0,e=Number($('expExpected').value)||0;
- $('expTotal').value=money(p+f);
+ let m=$('expVat').value,v=vatOf(p,m);
+ $('expTotal').value=money(p+f+(m==='add'?v:0));
+ $('expVatAmt').value=m==='none'?'—':money(v);
  $('expSaving').value=(e>0&&p>0)?(e>p?'🎉 '+money(e-p):(e<p?'زاد '+money(p-e)+' عن المتوقع':'مطابق للمتوقع')):'—';
 }
-$('expPrice').oninput=calcExpTotal;$('expFee').oninput=calcExpTotal;$('expExpected').oninput=calcExpTotal;
+$('expPrice').oninput=calcExpTotal;$('expFee').oninput=calcExpTotal;$('expExpected').oninput=calcExpTotal;$('expVat').onchange=calcExpTotal;
 $('addExp').onclick=()=>{
  let name=$('expName').value.trim(),price=Number($('expPrice').value)||0,fee=Number($('expFee').value)||0;
  let expected=Number($('expExpected').value)||0;
@@ -135,8 +140,9 @@ $('addExp').onclick=()=>{
  let now=Date.now(),dup=tx.find(t=>t.managed&&t.desc===name&&t.price===price&&t.fee===fee&&now-t.id<5*60*1000);
  if(dup&&!confirm('نفس المصروف انسجّل قبل دقائق. تبين تسجلينه مرة ثانية؟'))return;
  expLock=true;setTimeout(()=>{expLock=false},1500);
+ let vm=$('expVat').value,vat=vatOf(price,vm);
  let saving=expected>price?Math.round((expected-price)*100)/100:0;
- tx.push({id:Date.now(),date:new Date().toISOString(),type:'expense',amount:Math.round((price+fee)*100)/100,price,fee,desc:name,category:'other',source:`السعر ${price} + رسوم ${fee}`+(expected?` (المتوقع ${expected})`:''),expected,saving,managed:true});
+ tx.push({id:Date.now(),date:new Date().toISOString(),type:'expense',amount:Math.round((price+fee+(vm==='add'?vat:0))*100)/100,price,fee,vat,vatMode:vm,desc:name,category:'other',source:`السعر ${price} + رسوم ${fee}`+(vat?` + ضريبة ${vat}${vm==='incl'?' (شاملة)':''}`:'')+(expected?` (المتوقع ${expected})`:''),expected,saving,managed:true});
  save();render();$('expName').value='';$('expPrice').value='';$('expFee').value='';$('expExpected').value='';calcExpTotal();
  alert(saving>0?`انضاف المصروف، ووفّرتي ${money(saving)}! 🎉`:'انضاف المصروف وحُفظ تاريخه ووقته 💗');
 };
