@@ -7,6 +7,7 @@
 :root{--bg:#f7f5fb;--ink:#25233a;--card:#fff;--muted:#77758a;--line:#e9e5f0;--purple:#8050e8;--blue:#20b9d5;--pink:#ef5b91;--green:#16a765;--orange:#f6b84e}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif}header{background:linear-gradient(120deg,#6740d7,#a76ce9);color:white;padding:28px 18px}header .wrap,main{max-width:1100px;margin:auto}h1{margin:0 0 8px;font-size:29px}header p{margin:0;opacity:.9}.pill{display:inline-block;background:#ffffff27;padding:8px 12px;border-radius:20px;margin-top:15px;font-size:13px}
 main{padding:20px 15px 50px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:0 5px 20px #34205c08}.stat .label{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:25px;margin-top:9px}.section{margin-top:18px}.section h2{font-size:19px;margin:0 0 13px}.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:15px}.field{margin-bottom:12px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}input,select,button{font:inherit}input,select{width:100%;padding:11px;border:1px solid #ddd6e9;border-radius:10px;background:white;color:var(--ink)}button{border:0;border-radius:10px;padding:11px 14px;background:var(--purple);color:#fff;cursor:pointer;font-weight:bold}button.secondary{background:#eee8fa;color:#5d3bb2}button.danger{background:#ffe8ee;color:#b72e57}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hint{font-size:12px;color:var(--muted);line-height:1.7}.alloc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.allocation{border-radius:13px;padding:13px;background:#fff;border:1px solid var(--line);border-right:5px solid var(--c)}.allocation .top{display:flex;justify-content:space-between;gap:8px;font-weight:bold}.allocation input{margin-top:9px}.bar{height:8px;background:#eeeaf4;border-radius:9px;overflow:hidden;margin-top:10px}.bar span{display:block;height:100%;background:var(--c);width:0}.tag{display:inline-block;padding:4px 8px;border-radius:20px;font-size:12px;background:#f0eafc;color:#6040ad}.transactions{overflow:auto}table{border-collapse:collapse;width:100%;min-width:650px;font-size:13px}th,td{padding:11px 9px;border-bottom:1px solid var(--line);text-align:right}th{background:#f6f2fc;color:#655b7a}td small{color:var(--muted)}.income{color:#098a52}.expense{color:#d14470}.notice{padding:12px;border-radius:12px;background:#fff7df;color:#79590b;font-size:13px;line-height:1.7}.actions{display:flex;gap:8px;flex-wrap:wrap}.empty{text-align:center;padding:24px;color:var(--muted)}.recap{background:linear-gradient(135deg,#f0eaff,#fff);border-radius:14px;padding:16px;margin-top:12px;line-height:1.9}.smallbtn{padding:7px 9px;font-size:12px}.goalbox{background:linear-gradient(135deg,#f3eaff,#fff0f7);border:1px solid #e4d4ff;border-radius:17px;padding:18px}.goalhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.goalnum{font-size:27px;font-weight:bold;color:#7544cf}.goaltrack{height:13px;background:#e7dcf7;border-radius:20px;overflow:hidden;margin:12px 0}.goaltrack span{display:block;height:100%;width:0;background:linear-gradient(90deg,#9d71ee,#ef8dbd);border-radius:20px}.goalinputs{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}@media(max-width:600px){.goalinputs{grid-template-columns:1fr 1fr}.goalinputs button{grid-column:1/-1}}
+.goalinputs.vat4{grid-template-columns:1fr 1fr 1fr auto}@media(max-width:600px){.goalinputs.vat4{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cols{grid-template-columns:1fr}.alloc{grid-template-columns:1fr}h1{font-size:24px}.stat strong{font-size:21px}}
 </style></head>
 <body>
@@ -19,7 +20,7 @@ main{padding:20px 15px 50px}.grid{display:grid;grid-template-columns:repeat(4,mi
 <div class="card stat"><div class="label">المتبقي بعد المصروفات</div><strong id="balance">0 ر.س</strong></div>
 </div>
 <section class="goalbox section">
- <div class="goalhead"><div><h2 style="margin:0 0 6px"> هدفي الادخاري</h2><div class="hint">حددي هدفك، وسجّلي أي مبلغ تضيفينه لمدخراتك.</div></div><span class="tag">هدفك يتحدّث تلقائيًا</span></div>
+ <div class="goalhead"><div><h2 style="margin:0 0 6px">🐷 هدفي الادخاري</h2><div class="hint">حددي هدفك، وسجّلي أي مبلغ تضيفينه لمدخراتك.</div></div><span class="tag">هدفك يتحدّث تلقائيًا</span></div>
  <div class="goalhead" style="margin-top:16px"><div><div class="hint">مدخراتك الحالية</div><div class="goalnum" id="savedNow">0 ر.س</div></div><div><div class="hint">هدفك</div><div class="goalnum" id="goalTargetText">10,000 ر.س</div></div><div><div class="hint">المتبقي</div><strong id="goalLeft">10,000 ر.س</strong></div></div>
  <div class="goaltrack"><span id="goalProgress"></span></div><div class="hint" id="goalPercent">0% من الهدف</div>
  <div class="goalinputs" style="margin-top:14px">
@@ -44,11 +45,9 @@ main{padding:20px 15px 50px}.grid{display:grid;grid-template-columns:repeat(4,mi
 <section class="card section"><h2>🧾 إدارة المصاريف</h2>
 <div class="row"><div class="field"><label>اسم الشيء</label><input id="expName" placeholder="مثلاً: لعبة"></div><div class="field"><label>السعر الفعلي (ريال)</label><input id="expPrice" type="number" min="0" step="0.01" placeholder="مثلاً 120"></div></div>
 <div class="row"><div class="field"><label>الرسوم (ريال)</label><input id="expFee" type="number" min="0" step="0.01" placeholder="مثلاً 2"></div><div class="field"><label>الإجمالي (يُحسب تلقائيًا)</label><input id="expTotal" readonly value="0 ر.س"></div></div>
-<div class="row"><div class="field"><label>السعر المتوقع (اختياري)</label><input id="expExpected" type="number" min="0" step="0.01" placeholder="مثلاً 25"></div><div class="field"><label>التوفير (يُحسب تلقائيًا)</label><input id="expSaving" readonly value="—"></div></div>
 <div class="row"><div class="field"><label>ضريبة القيمة المضافة 15%</label><select id="expVat"><option value="none">بدون ضريبة</option><option value="add">السعر بدون ضريبة (تُضاف 15%)</option><option value="incl">السعر شامل الضريبة</option></select></div><div class="field"><label>مبلغ الضريبة (يُحسب تلقائيًا)</label><input id="expVatAmt" readonly value="—"></div></div>
 <button id="addExp">＋ سجّلي المصروف</button> <span class="hint">يُسجَّل التاريخ والوقت تلقائيًا، ويُحسب ضمن إجمالي المصروفات.</span>
-<h2 style="margin-top:20px">📋 سجل مصاريفك</h2><div class="hint" id="expSavedTotal" style="margin-bottom:8px"></div>
-<div class="transactions"><table><thead><tr><th>التاريخ والوقت</th><th>الشيء</th><th>السعر</th><th>الرسوم</th><th>الضريبة</th><th>الإجمالي</th><th>التوفير</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div><div id="expEmpty" class="empty">ما سجلتِ مصاريف بعد 💗</div></section>
+<h2 style="margin-top:20px">📋 سجل مصاريفك</h2><div class="transactions"><table><thead><tr><th>التاريخ والوقت</th><th>الشيء</th><th>السعر</th><th>الرسوم</th><th>الضريبة</th><th>الإجمالي</th><th></th></tr></thead><tbody id="expRows"></tbody></table></div><div id="expEmpty" class="empty">ما سجلتِ مصاريف بعد 💗</div></section>
 <section class="card section"><h2>🎀 قوائمي</h2>
 <p class="hint">قوائم منفصلة عشان ما تختلط أغراضك. اختاري قائمة أو أنشئي قائمة خاصة من اختيارك.</p>
 <div class="actions" id="listTabs" style="margin-bottom:14px"></div>
@@ -117,34 +116,30 @@ $('addSavings').onclick=()=>{let n=Number($('goalAddAmount').value);if(!n||n<=0)
 $('restore').onchange=async e=>{try{let data=JSON.parse(await e.target.files[0].text());if(!Array.isArray(data.tx)||!Array.isArray(data.cats))throw 0;cats=data.cats;tx=data.tx;if(data.goal)goal=data.goal;if(Array.isArray(data.lists))lists=data.lists;save();renderSettings();render();renderLists();alert('تمت استعادة النسخة 💜')}catch{alert('الملف غير صالح')}}; 
 function renderExp(){
  let list=tx.filter(t=>t.type==='expense'&&t.managed).reverse();
- $('expRows').innerHTML=list.map(t=>`<tr><td>${dateText(t.date)}</td><td>${esc(t.desc)}</td><td>${money(t.price)}</td><td>${money(t.fee)}</td><td>${t.vat?money(t.vat)+(t.vatMode==='incl'?'<br><small>شاملة</small>':''):'—'}</td><td class="expense"><strong>${money(t.amount)}</strong></td><td class="income">${t.saving>0?'🎉 '+money(t.saving):'—'}</td><td><button class="danger smallbtn" data-delexp="${t.id}">حذف</button></td></tr>`).join('');
+ $('expRows').innerHTML=list.map(t=>`<tr><td>${dateText(t.date)}</td><td>${esc(t.desc)}</td><td>${money(t.price)}</td><td>${money(t.fee)}</td><td>${t.vat?money(t.vat)+(t.vatMode==='incl'?'<br><small>شاملة</small>':''):'—'}</td><td class="expense"><strong>${money(t.amount)}</strong></td><td><button class="danger smallbtn" data-delexp="${t.id}">حذف</button></td></tr>`).join('');
  $('expEmpty').style.display=list.length?'none':'block';
- let sv=list.reduce((a,t)=>a+(t.saving||0),0);$('expSavedTotal').textContent=sv>0?`إجمالي توفيرك: ${money(sv)} 🎉`:'';
-}
+ }
 let expLock=false;
 const VAT=0.15;
 function vatOf(p,m){return m==='add'?Math.round(p*VAT*100)/100:m==='incl'?Math.round(p*VAT/(1+VAT)*100)/100:0}
 function calcExpTotal(){
- let p=Number($('expPrice').value)||0,f=Number($('expFee').value)||0,e=Number($('expExpected').value)||0;
+ let p=Number($('expPrice').value)||0,f=Number($('expFee').value)||0;
  let m=$('expVat').value,v=vatOf(p,m);
  $('expTotal').value=money(p+f+(m==='add'?v:0));
  $('expVatAmt').value=m==='none'?'—':money(v);
- $('expSaving').value=(e>0&&p>0)?(e>p?'🎉 '+money(e-p):(e<p?'زاد '+money(p-e)+' عن المتوقع':'مطابق للمتوقع')):'—';
-}
-$('expPrice').oninput=calcExpTotal;$('expFee').oninput=calcExpTotal;$('expExpected').oninput=calcExpTotal;$('expVat').onchange=calcExpTotal;
+ }
+$('expPrice').oninput=calcExpTotal;$('expFee').oninput=calcExpTotal;$('expVat').onchange=calcExpTotal;
 $('addExp').onclick=()=>{
  let name=$('expName').value.trim(),price=Number($('expPrice').value)||0,fee=Number($('expFee').value)||0;
- let expected=Number($('expExpected').value)||0;
- if(!name||price<=0||fee<0||expected<0){alert('اكتبي اسم الشيء وسعره الفعلي أولًا 💗');return}
+  if(!name||price<=0||fee<0){alert('اكتبي اسم الشيء وسعره الفعلي أولًا 💗');return}
  if(expLock)return;
  let now=Date.now(),dup=tx.find(t=>t.managed&&t.desc===name&&t.price===price&&t.fee===fee&&now-t.id<5*60*1000);
  if(dup&&!confirm('نفس المصروف انسجّل قبل دقائق. تبين تسجلينه مرة ثانية؟'))return;
  expLock=true;setTimeout(()=>{expLock=false},1500);
  let vm=$('expVat').value,vat=vatOf(price,vm);
- let saving=expected>price?Math.round((expected-price)*100)/100:0;
- tx.push({id:Date.now(),date:new Date().toISOString(),type:'expense',amount:Math.round((price+fee+(vm==='add'?vat:0))*100)/100,price,fee,vat,vatMode:vm,desc:name,category:'other',source:`السعر ${price} + رسوم ${fee}`+(vat?` + ضريبة ${vat}${vm==='incl'?' (شاملة)':''}`:'')+(expected?` (المتوقع ${expected})`:''),expected,saving,managed:true});
- save();render();$('expName').value='';$('expPrice').value='';$('expFee').value='';$('expExpected').value='';calcExpTotal();
- alert(saving>0?`انضاف المصروف، ووفّرتي ${money(saving)}! 🎉`:'انضاف المصروف وحُفظ تاريخه ووقته 💗');
+  tx.push({id:Date.now(),date:new Date().toISOString(),type:'expense',amount:Math.round((price+fee+(vm==='add'?vat:0))*100)/100,price,fee,vat,vatMode:vm,desc:name,category:'other',source:`السعر ${price} + رسوم ${fee}`+(vat?` + ضريبة ${vat}${vm==='incl'?' (شاملة)':''}`:''),managed:true});
+ save();render();$('expName').value='';$('expPrice').value='';$('expFee').value='';calcExpTotal();
+ alert('انضاف المصروف وحُفظ تاريخه ووقته 💗');
 };
 $('expRows').onclick=e=>{let b=e.target.closest('[data-delexp]');if(b&&confirm('متأكدة تبين تحذفين المصروف؟')){tx=tx.filter(t=>String(t.id)!==b.dataset.delexp);save();render()}};
 let curList=lists[0]&&lists[0].id;
@@ -153,10 +148,10 @@ function renderLists(){
  $('listTabs').innerHTML=lists.map(l=>`<button class="${l.id===curList?'':'secondary'}" data-tab="${l.id}">${l.icon} ${esc(l.name)}</button>`).join('');
  let l=lists.find(x=>x.id===curList);
  if(!l){$('listBody').innerHTML='<div class="empty">ما فيه قوائم، أنشئي وحدة 💗</div>';return}
- let open=l.items.filter(i=>!i.done).reduce((a,i)=>a+(i.price||0),0);
+ let open=l.items.filter(i=>!i.done).reduce((a,i)=>a+(i.total??i.price??0),0);
  $('listBody').innerHTML=`<div class="goalhead"><strong>${l.icon} ${esc(l.name)}</strong><div class="actions"><button class="secondary smallbtn" data-img="1">📷 حفظ القائمة كصورة</button>${l.custom?`<button class="danger smallbtn" data-dellist="${l.id}">حذف القائمة</button>`:''}</div></div>
- <div class="goalinputs" style="margin:12px 0"><div class="field"><label>الغرض</label><input id="itemText" placeholder="مثلاً: حليب"></div><div class="field"><label>السعر التقريبي (اختياري)</label><input id="itemPrice" type="number" min="0" step="0.01"></div><button id="addItem">＋ إضافة</button></div>`
- +(l.items.length?l.items.map(i=>`<div class="allocation" style="--c:${i.done?'#16a765':'#8050e8'};margin-bottom:8px"><div class="top"><label style="display:flex;gap:8px;align-items:center;${i.done?'text-decoration:line-through;opacity:.6':''}"><input type="checkbox" style="width:auto;margin:0" data-chk="${i.id}" ${i.done?'checked':''}>${esc(i.text)}</label><span>${i.price?money(i.price):''}</span></div><div class="actions" style="margin-top:8px"><button class="secondary smallbtn" data-toexp="${i.id}">سجّليه كمصروف</button><button class="danger smallbtn" data-delitem="${i.id}">حذف</button></div></div>`).join(''):'<div class="empty">القائمة فاضية 💗</div>')
+ <div class="goalinputs ${l.id==='later'?'vat4':''}" style="margin:12px 0"><div class="field"><label>الغرض</label><input id="itemText" placeholder="مثلاً: حليب"></div><div class="field"><label>السعر التقريبي (اختياري)</label><input id="itemPrice" type="number" min="0" step="0.01"></div>${l.id==='later'?`<div class="field"><label>ضريبة القيمة المضافة 15%</label><select id="itemVat"><option value="none">بدون ضريبة</option><option value="add">السعر بدون ضريبة (تُضاف 15%)</option><option value="incl">السعر شامل الضريبة</option></select></div>`:''}<button id="addItem">＋ إضافة</button></div>`
+ +(l.items.length?l.items.map(i=>`<div class="allocation" style="--c:${i.done?'#16a765':'#8050e8'};margin-bottom:8px"><div class="top"><label style="display:flex;gap:8px;align-items:center;${i.done?'text-decoration:line-through;opacity:.6':''}"><input type="checkbox" style="width:auto;margin:0" data-chk="${i.id}" ${i.done?'checked':''}>${esc(i.text)}</label><span style="text-align:left">${i.price?money(i.total??i.price)+(i.vatMode&&i.vatMode!=='none'?`<br><small>${i.vatMode==='incl'?'شامل الضريبة':'مع الضريبة'} (ضريبة ${money(i.vat)})</small>`:''):''}</span></div><div class="actions" style="margin-top:8px"><button class="secondary smallbtn" data-toexp="${i.id}">سجّليه كمصروف</button><button class="danger smallbtn" data-delitem="${i.id}">حذف</button></div></div>`).join(''):'<div class="empty">القائمة فاضية 💗</div>')
  +`<div class="hint">تقدير المتبقي في القائمة: ${money(open)}</div>`;
 }
 function saveListImage(l){
@@ -186,9 +181,9 @@ function saveListImage(l){
   if(t!==it.text)t+='…';
   let tx0=W-pad-64;c.fillText(t,tx0,cy);
   if(it.done){let w=c.measureText(t).width;c.strokeStyle='#9a97aa';c.lineWidth=2;c.beginPath();c.moveTo(tx0,cy);c.lineTo(tx0-w,cy);c.stroke()}
-  if(it.price){c.textAlign='left';c.fillStyle='#7544cf';c.font='bold 22px '+F;c.fillText(money(it.price),pad+24,cy)}
+  if(it.price){c.textAlign='left';c.fillStyle='#7544cf';c.font='bold 22px '+F;c.fillText(money(it.total??it.price)+(it.vatMode==='incl'?' (شامل الضريبة)':it.vatMode==='add'?' (مع الضريبة)':''),pad+24,cy)}
  });
- let open=l.items.filter(i=>!i.done).reduce((a,i)=>a+(i.price||0),0),left=l.items.filter(i=>!i.done).length;
+ let open=l.items.filter(i=>!i.done).reduce((a,i)=>a+(i.total??i.price??0),0),left=l.items.filter(i=>!i.done).length;
  c.textAlign='right';c.fillStyle='#77758a';c.font='20px '+F;
  c.fillText(`المتبقي: ${left} من ${l.items.length}`+(open?` — تقدير ${money(open)}`:''),W-pad,H-footH/2+10);
  c.textAlign='left';c.fillText('💜 مساحتي المالية',pad,H-footH/2+10);
@@ -202,10 +197,10 @@ $('listBody').onclick=e=>{
  let l=lists.find(x=>x.id===curList);if(!l)return;
  if(e.target.closest('[data-img]')){saveListImage(l);return}
  if(e.target.closest('#addItem')){let t=$('itemText').value.trim(),p=Number($('itemPrice').value)||0;if(!t){alert('اكتبي اسم الغرض أولًا 💗');return}
-  l.items.push({id:Date.now(),text:t,price:p,done:false});save();renderLists();return}
+  let vm=$('itemVat')?$('itemVat').value:'none',vat=vatOf(p,vm);l.items.push({id:Date.now(),text:t,price:p,vatMode:vm,vat,total:Math.round((p+(vm==='add'?vat:0))*100)/100,done:false});save();renderLists();return}
  let d=e.target.closest('[data-delitem]');if(d){l.items=l.items.filter(i=>String(i.id)!==d.dataset.delitem);save();renderLists();return}
  let dl=e.target.closest('[data-dellist]');if(dl&&confirm('متأكدة تبين تحذفين القائمة بكل أغراضها؟')){lists=lists.filter(x=>x.id!==l.id);save();renderLists();return}
- let x=e.target.closest('[data-toexp]');if(x){let it=l.items.find(i=>String(i.id)===x.dataset.toexp);if(it){$('expName').value=it.text;$('expExpected').value=it.price||'';calcExpTotal();$('expName').scrollIntoView({behavior:'smooth',block:'center'});$('expPrice').focus()}}
+ let x=e.target.closest('[data-toexp]');if(x){let it=l.items.find(i=>String(i.id)===x.dataset.toexp);if(it){$('expName').value=it.text;$('expPrice').value=it.price||'';$('expVat').value=it.vatMode||'none';calcExpTotal();$('expName').scrollIntoView({behavior:'smooth',block:'center'});$('expPrice').focus()}}
 };
 $('listBody').onchange=e=>{let c=e.target.closest('[data-chk]');if(!c)return;let l=lists.find(x=>x.id===curList),it=l&&l.items.find(i=>String(i.id)===c.dataset.chk);if(it){it.done=c.checked;save();renderLists()}};
 renderLists();
